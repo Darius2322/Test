@@ -11,7 +11,7 @@
 <meta name="application-name" content="SHOFCO Survey">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" id="pwa-manifest-link">
-<title>SHOFCO Survey — Supabase Edition v56</title>
+<title>SHOFCO Survey — Supabase Edition v57</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -34,7 +34,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 
 /* ============ SETUP / LOGIN SCREEN ============ */
 #setup-screen{display:none;flex-direction:column;align-items:center;justify-content:center;padding:0;min-height:100vh;background:var(--bg);overflow-y:auto}
-#setup-screen.active{display:flex}
 .setup-logo{font-size:56px;margin-bottom:10px;filter:drop-shadow(0 0 18px #3b7dd855)}
 .setup-title{font-size:28px;font-weight:900;letter-spacing:-1px;margin-bottom:4px;background:linear-gradient(135deg,#4e90f0,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .setup-sub{font-size:13px;color:var(--muted);text-align:center;margin-bottom:28px;line-height:1.6}
@@ -668,7 +667,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 
 /* ============ HELP PAGE / SCREEN ============ */
 #help-screen{display:none;min-height:100vh;background:var(--bg);flex-direction:column}
-#help-screen.active-flex{display:flex}
+#help-screen.active{display:flex}
 .help-hero{background:linear-gradient(160deg,#091a30,#0d2240);border-bottom:1px solid var(--border);padding:24px 16px 20px;text-align:center;position:relative;overflow:hidden}
 .help-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(59,125,216,.2),transparent 70%);pointer-events:none}
 .help-hero-ico{font-size:40px;margin-bottom:10px}
@@ -1103,7 +1102,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   </div>
 
 <!-- ====================== COMPLAINT SCREEN ====================== -->
-<div id="complaint-screen" class="screen" style="display:none;min-height:100vh;background:var(--bg);flex-direction:column">
+<div id="complaint-screen" class="screen" style="min-height:100vh;background:var(--bg);flex-direction:column">
   <div class="top-bar">
     <button class="btn-ico" onclick="closeComplaintScreen()">◀</button>
     <div class="tb-brand" style="background:linear-gradient(90deg,#ef4444,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">📢 Complaint</div>
@@ -1641,7 +1640,7 @@ create policy "enum_status_update_self" on public.enumerator_status
 </div>
 
 <!-- ====================== RATE SCREEN ====================== -->
-<div id="rate-screen" class="screen" style="display:none;min-height:100vh;background:var(--bg);flex-direction:column">
+<div id="rate-screen" class="screen" style="min-height:100vh;background:var(--bg);flex-direction:column">
   <div class="top-bar">
     <button class="btn-ico" onclick="closeRateScreen()">◀</button>
     <div class="tb-brand" style="background:linear-gradient(90deg,#fde047,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">⭐ Rate & Feedback</div>
@@ -3020,17 +3019,17 @@ function subscribeRealtimeAdmin() {
 // ============================================================
 // status-screen is a fixed overlay managed separately — excluded from showScr
 const SCREENS = ['setup-screen','dashboard-screen','admin-screen','calllist-screen','rate-screen','complaint-screen','help-screen'];
-const FLEX_SCREENS = new Set(['rate-screen','complaint-screen','help-screen']);
+const FLEX_SCREENS = new Set(['setup-screen','rate-screen','complaint-screen','help-screen']);
 function showScr(id) {
   SCREENS.forEach(sid => {
     const el = document.getElementById(sid);
     if (!el) return;
     if (sid === id) {
       el.classList.add('active');
-      el.style.display = FLEX_SCREENS.has(sid) ? 'flex' : '';
+      el.style.display = FLEX_SCREENS.has(sid) ? 'flex' : 'block';
     } else {
       el.classList.remove('active');
-      if (FLEX_SCREENS.has(sid)) el.style.display = 'none';
+      el.style.display = 'none';
     }
   });
   window.scrollTo(0, 0);
@@ -4945,7 +4944,7 @@ let _currentAppVersion = null; // version string loaded at boot
 
 // Each HTML file gets a build stamp baked in at save time.
 // When admin pushes a new version, this stamp won't match → prompt shown.
-const APP_BUILD_STAMP = 'build_v56'; // ← bump this string each time you save a new version
+const APP_BUILD_STAMP = 'build_v57'; // ← bump this string each time you save a new version
 
 async function loadAppVersion() {
   try {
