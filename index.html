@@ -11,7 +11,7 @@
 <meta name="application-name" content="SHOFCO Survey">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" id="pwa-manifest-link">
-<title>SHOFCO Survey — Supabase Edition v57</title>
+<title>SHOFCO Survey — Supabase Edition v58</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -704,26 +704,28 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .adm-range-export-btn:hover{background:rgba(34,197,94,.24)}
 #adm-range-result{margin-top:12px}
 
-/* ============ PWA INSTALL BANNER ============ */
-#pwa-install-banner{
-  display:none;position:fixed;bottom:calc(80px + env(safe-area-inset-bottom) + 8px);left:12px;right:12px;
-  background:linear-gradient(135deg,#0d1f38,#161d35);
-  border:1.5px solid rgba(59,125,216,.5);border-radius:18px;
-  padding:14px 16px;z-index:600;
-  box-shadow:0 8px 32px rgba(0,0,0,.55),0 0 0 1px rgba(59,125,216,.2);
-  animation:slideUpBanner .35s cubic-bezier(.175,.885,.32,1.275) both;
+/* ============ PWA INSTALL GATE ============ */
+#pwa-install-gate{
+  display:none;position:fixed;inset:0;z-index:9998;
+  background:#0a0e1a;
+  flex-direction:column;align-items:center;justify-content:center;
+  padding:28px;text-align:center;
 }
-@keyframes slideUpBanner{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-#pwa-install-banner.vis{display:block}
-.pwa-banner-inner{display:flex;align-items:center;gap:12px}
-.pwa-banner-ico{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#3b7dd8,#a855f7);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;box-shadow:0 4px 12px rgba(59,125,216,.4)}
-.pwa-banner-text{flex:1}
-.pwa-banner-title{font-size:13px;font-weight:800;color:var(--text);margin-bottom:1px}
-.pwa-banner-sub{font-size:11px;color:var(--muted)}
-.pwa-banner-install-btn{background:linear-gradient(135deg,var(--accent),#5b21b6);color:#fff;border:none;padding:8px 14px;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;font-family:var(--font);white-space:nowrap;transition:opacity .15s}
-.pwa-banner-install-btn:hover{opacity:.88}
-.pwa-banner-close{background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;padding:4px;line-height:1;flex-shrink:0;font-family:var(--font)}
-.pwa-banner-close:hover{color:var(--text)}
+#pwa-install-gate.vis{display:flex}
+.pig-logo{width:88px;height:88px;border-radius:24px;background:linear-gradient(135deg,#3b7dd8,#a855f7);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 12px 40px rgba(59,125,216,.4)}
+.pig-title{font-size:26px;font-weight:900;letter-spacing:-1px;margin-bottom:6px;background:linear-gradient(135deg,#4e90f0,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pig-sub{font-size:13px;color:#7a8aaa;line-height:1.7;margin-bottom:32px;max-width:300px}
+.pig-install-btn{width:100%;max-width:320px;background:linear-gradient(135deg,#3b7dd8,#5b21b6);color:#fff;border:none;padding:16px 24px;border-radius:16px;font-size:17px;font-weight:800;cursor:pointer;font-family:var(--font);letter-spacing:-.2px;box-shadow:0 8px 28px rgba(59,125,216,.45);margin-bottom:12px;transition:opacity .15s}
+.pig-install-btn:hover{opacity:.9}
+.pig-skip-btn{background:transparent;border:1px solid #2a3a5c;color:#7a8aaa;padding:12px 24px;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);width:100%;max-width:320px;transition:all .15s}
+.pig-skip-btn:hover{border-color:#4e90f0;color:#e8eef8}
+.pig-steps{width:100%;max-width:320px;background:#111827;border:1px solid #2a3a5c;border-radius:14px;padding:16px;margin-bottom:24px;text-align:left;display:none}
+.pig-steps.vis{display:block}
+.pig-step{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:13px;color:#e8eef8;border-bottom:1px solid #1e2d4a}
+.pig-step:last-child{border-bottom:none}
+.pig-step-n{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#3b7dd8,#a855f7);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0}
+.pig-ios-note{font-size:12px;color:#7a8aaa;line-height:1.7;margin-top:12px;padding:10px 14px;background:#0d1626;border-radius:10px;border:1px solid #1e2d4a;width:100%;max-width:320px;display:none}
+.pig-ios-note.vis{display:block}
 
 /* ============ STATUS SCREEN — slide-up overlay ============ */
 #status-screen{
@@ -1221,17 +1223,40 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   </div>
 </div>
 
-<!-- ====================== PWA INSTALL BANNER ====================== -->
-<div id="pwa-install-banner">
-  <div class="pwa-banner-inner">
-    <div class="pwa-banner-ico">📋</div>
-    <div class="pwa-banner-text">
-      <div class="pwa-banner-title">Install SHOFCO Survey</div>
-      <div class="pwa-banner-sub">Add to home screen for faster access</div>
-    </div>
-    <button class="pwa-banner-install-btn" onclick="triggerPwaInstall()">Install</button>
-    <button class="pwa-banner-close" onclick="dismissPwaBanner()" title="Dismiss">✕</button>
+<!-- ====================== PWA INSTALL GATE ====================== -->
+<!-- Shows when app is NOT running in standalone mode — prompts proper install -->
+<div id="pwa-install-gate">
+  <div class="pig-logo">
+    <svg width="48" height="48" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="8" width="40" height="48" rx="7" fill="url(#pig1)" opacity=".18"/>
+      <rect x="10" y="8" width="40" height="48" rx="7" fill="none" stroke="url(#pig1)" stroke-width="2.5"/>
+      <rect x="22" y="4" width="16" height="9" rx="4.5" fill="#3b7dd8"/>
+      <rect x="17" y="22" width="26" height="3" rx="1.5" fill="#4e90f0"/>
+      <rect x="17" y="29" width="20" height="3" rx="1.5" fill="#4e90f0" opacity=".7"/>
+      <rect x="17" y="36" width="14" height="3" rx="1.5" fill="#4e90f0" opacity=".4"/>
+      <circle cx="42" cy="44" r="11" fill="#22c55e"/>
+      <path d="M37 44l3.5 3.5L47 40" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <defs><linearGradient id="pig1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b7dd8"/><stop offset="1" stop-color="#a855f7"/></linearGradient></defs>
+    </svg>
   </div>
+  <div class="pig-title">SHOFCO Survey</div>
+  <div class="pig-sub">Install the app for the best experience — works offline, opens instantly, no browser bars</div>
+
+  <!-- Android install steps (shown after tapping Install) -->
+  <div class="pig-steps" id="pig-steps-android">
+    <div class="pig-step"><div class="pig-step-n">1</div><span>Tap <strong>Install</strong> below when Chrome asks</span></div>
+    <div class="pig-step"><div class="pig-step-n">2</div><span>Tap <strong>Install</strong> again in the popup</span></div>
+    <div class="pig-step"><div class="pig-step-n">3</div><span>Open <strong>SHOFCO Survey</strong> from your home screen</span></div>
+  </div>
+
+  <!-- iOS instructions -->
+  <div class="pig-ios-note" id="pig-ios-note">
+    <strong style="color:#e8eef8">On iPhone / iPad:</strong><br>
+    Tap the <strong style="color:#4e90f0">Share ↑</strong> button in Safari, then tap <strong style="color:#4e90f0">Add to Home Screen</strong>. Then open the app icon.
+  </div>
+
+  <button class="pig-install-btn" id="pig-install-btn" onclick="triggerPwaInstall()">📲 Install App</button>
+  <button class="pig-skip-btn" onclick="dismissInstallGate()">Continue in browser</button>
 </div>
 
 <!-- ====================== SEARCH PANEL ====================== -->
@@ -3018,8 +3043,8 @@ function subscribeRealtimeAdmin() {
 // SCREEN MANAGEMENT — zero-delay instant switching
 // ============================================================
 // status-screen is a fixed overlay managed separately — excluded from showScr
-const SCREENS = ['setup-screen','dashboard-screen','admin-screen','calllist-screen','rate-screen','complaint-screen','help-screen'];
-const FLEX_SCREENS = new Set(['setup-screen','rate-screen','complaint-screen','help-screen']);
+const SCREENS = ['setup-screen','dashboard-screen','admin-screen','calllist-screen'];
+const FLEX_SCREENS = new Set(['setup-screen']);
 function showScr(id) {
   SCREENS.forEach(sid => {
     const el = document.getElementById(sid);
@@ -3031,6 +3056,11 @@ function showScr(id) {
       el.classList.remove('active');
       el.style.display = 'none';
     }
+  });
+  // Also hide the overlay screens when switching main screens
+  ['rate-screen','complaint-screen','help-screen'].forEach(sid => {
+    const el = document.getElementById(sid);
+    if (el) { el.style.display = 'none'; el.classList.remove('active'); }
   });
   window.scrollTo(0, 0);
 }
@@ -4944,7 +4974,7 @@ let _currentAppVersion = null; // version string loaded at boot
 
 // Each HTML file gets a build stamp baked in at save time.
 // When admin pushes a new version, this stamp won't match → prompt shown.
-const APP_BUILD_STAMP = 'build_v57'; // ← bump this string each time you save a new version
+const APP_BUILD_STAMP = 'build_v58'; // ← bump this string each time you save a new version
 
 async function loadAppVersion() {
   try {
@@ -5639,9 +5669,15 @@ function openComplaintScreen() {
     b.style.color       = 'var(--muted)';
     b.style.background  = 'var(--surface2)';
   });
-  showScr('complaint-screen');
+  // Hide all main screens, show complaint overlay (v51 pattern)
+  document.querySelectorAll('.screen').forEach(x => x.classList.remove('active'));
+  const s = document.getElementById('complaint-screen');
+  s.style.display = 'flex'; s.classList.add('active');
+  window.scrollTo(0, 0);
 }
 function closeComplaintScreen() {
+  const s = document.getElementById('complaint-screen');
+  s.style.display = 'none'; s.classList.remove('active');
   showDash();
 }
 async function submitComplaint() {
@@ -5748,7 +5784,6 @@ const RATING_LABELS = ['','😕 Poor','😐 Fair','🙂 Good','😊 Great','🤩
 function openRateScreen() {
   selectedRating = 0;
   document.getElementById('feedback-text').value = '';
-  // Reset to form view
   document.getElementById('rate-form-view').style.display = 'block';
   document.getElementById('rate-thanks').style.display = 'none';
   document.getElementById('rate-submit-btn').style.display = 'block';
@@ -5758,10 +5793,16 @@ function openRateScreen() {
     s.style.filter = 'grayscale(1)'; s.style.opacity = '.4'; s.style.transform = 'scale(1)';
   });
   document.getElementById('rating-label').textContent = '';
-  showScr('rate-screen');
+  // Show the screen (v51 pattern — directly set display:flex)
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const rs = document.getElementById('rate-screen');
+  rs.style.display = 'flex'; rs.classList.add('active');
+  window.scrollTo(0, 0);
 }
 
 function closeRateScreen() {
+  const rs = document.getElementById('rate-screen');
+  rs.style.display = 'none'; rs.classList.remove('active');
   showDash();
 }
 
@@ -6139,9 +6180,14 @@ function runDrawerSearch(q) {
 // HELP SCREEN
 // ============================================================
 function openHelpScreen() {
-  showScr('help-screen');
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const hs = document.getElementById('help-screen');
+  hs.style.display = 'flex'; hs.classList.add('active');
+  window.scrollTo(0, 0);
 }
 function closeHelpScreen() {
+  const hs = document.getElementById('help-screen');
+  hs.style.display = 'none'; hs.classList.remove('active');
   showDash();
 }
 function sendHelpViaWhatsApp() {
@@ -6309,11 +6355,87 @@ function exportRangeLogs(logs, sheetName, from, to) {
 }
 
 // ============================================================
-// PWA INSTALL SUPPORT
+// PWA INSTALL GATE — standalone mode detection + install prompt
 // ============================================================
 let _deferredInstallPrompt = null;
-let _pwaBannerDismissed = false;
+let _installGateDismissed  = localStorage.getItem('shofco_install_dismissed') === '1';
 
+function isRunningStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches
+      || window.navigator.standalone === true  // iOS Safari
+      || document.referrer.includes('android-app://');
+}
+
+function showInstallGateIfNeeded() {
+  // Already standalone — perfect, do nothing
+  if (isRunningStandalone()) return;
+  // User already dismissed — respect that
+  if (_installGateDismissed) return;
+  // iOS: always show with iOS instructions since no beforeinstallprompt
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const gate  = document.getElementById('pwa-install-gate');
+  if (!gate) return;
+  if (isIOS) {
+    const iosNote = document.getElementById('pig-ios-note');
+    const btn     = document.getElementById('pig-install-btn');
+    if (iosNote) iosNote.classList.add('vis');
+    if (btn) { btn.textContent = '📖 How to Install on iOS'; btn.onclick = () => {}; }
+    gate.classList.add('vis');
+    return;
+  }
+  // Android/Chrome: show gate immediately, install button will trigger prompt
+  gate.classList.add('vis');
+}
+
+function dismissInstallGate() {
+  localStorage.setItem('shofco_install_dismissed', '1');
+  _installGateDismissed = true;
+  const gate = document.getElementById('pwa-install-gate');
+  if (gate) gate.classList.remove('vis');
+}
+
+function triggerPwaInstall() {
+  if (!_deferredInstallPrompt) {
+    // Show iOS guide or generic message
+    const iosNote = document.getElementById('pig-ios-note');
+    if (iosNote) iosNote.classList.add('vis');
+    toast('💡 On iOS: Safari → Share ↑ → Add to Home Screen', 'ok');
+    return;
+  }
+  // Show the Android install steps
+  const steps = document.getElementById('pig-steps-android');
+  if (steps) steps.classList.add('vis');
+  const btn = document.getElementById('pig-install-btn');
+  if (btn) { btn.textContent = '⏳ Installing…'; btn.disabled = true; }
+
+  _deferredInstallPrompt.prompt();
+  _deferredInstallPrompt.userChoice.then(r => {
+    if (r.outcome === 'accepted') {
+      toast('🎉 Installing… open SHOFCO Survey from your home screen', 'ok');
+      dismissInstallGate();
+    } else {
+      if (btn) { btn.textContent = '📲 Install App'; btn.disabled = false; }
+      toast('Tap Install App again when ready', 'warn');
+    }
+    _deferredInstallPrompt = null;
+  });
+}
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  _deferredInstallPrompt = e;
+  // Show the gate if not already standalone
+  if (!isRunningStandalone() && !_installGateDismissed) {
+    const gate = document.getElementById('pwa-install-gate');
+    if (gate) gate.classList.add('vis');
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  _deferredInstallPrompt = null;
+  dismissInstallGate();
+  toast('🎉 App installed! Open SHOFCO Survey from your home screen', 'ok');
+});
 // Inject PWA manifest dynamically so the single HTML file works standalone
 (function injectPwaManifest() {
   // Only works on http/https
@@ -6348,7 +6470,7 @@ let _pwaBannerDismissed = false;
   if (proto !== 'https:' && proto !== 'http:') return;
   if (!('serviceWorker' in navigator)) return;
   const swCode = `
-    const CACHE = 'shofco-v56';
+    const CACHE = 'shofco-v58';
     const SUPABASE_DOMAIN = 'supabase.co';
     const CDN_HOSTS = ['cdnjs.cloudflare.com','cdn.jsdelivr.net','fonts.googleapis.com','fonts.gstatic.com'];
 
@@ -6429,43 +6551,6 @@ let _pwaBannerDismissed = false;
   }).catch(()=>{});
 })();
 
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  _deferredInstallPrompt = e;
-  if (!_pwaBannerDismissed) {
-    setTimeout(() => {
-      const b = document.getElementById('pwa-install-banner');
-      if (b) b.classList.add('vis');
-    }, 3000);
-  }
-});
-
-window.addEventListener('appinstalled', () => {
-  _deferredInstallPrompt = null;
-  const b = document.getElementById('pwa-install-banner');
-  if (b) b.classList.remove('vis');
-  toast('🎉 App installed! Open from your home screen', 'ok');
-});
-
-function triggerPwaInstall() {
-  if (!_deferredInstallPrompt) {
-    toast('💡 On iOS: tap Share → Add to Home Screen', 'ok');
-    return;
-  }
-  _deferredInstallPrompt.prompt();
-  _deferredInstallPrompt.userChoice.then(r => {
-    if (r.outcome === 'accepted') toast('🎉 Installing…', 'ok');
-    _deferredInstallPrompt = null;
-    const b = document.getElementById('pwa-install-banner');
-    if (b) b.classList.remove('vis');
-  });
-}
-
-function dismissPwaBanner() {
-  _pwaBannerDismissed = true;
-  const b = document.getElementById('pwa-install-banner');
-  if (b) b.classList.remove('vis');
-}
 
 // ============================================================
 // OFFLINE SYNC BADGE — shows pending item count
@@ -6490,6 +6575,12 @@ function updateSyncBadge() {
   // Don't run on file:// or content:// — protocolGuard handles those
   const proto = location.protocol;
   if (proto !== 'https:' && proto !== 'http:') return;
+
+  // Check if we need to show the install gate FIRST
+  // We check immediately — if not standalone and not dismissed, gate takes over
+  // The gate has its own "Continue in browser" button to proceed
+  // Note: beforeinstallprompt may not fire immediately, so we check after 400ms
+  setTimeout(() => showInstallGateIfNeeded(), 400);
 
   const splash = document.getElementById('pwa-splash');
   const bar    = document.getElementById('splash-bar');
